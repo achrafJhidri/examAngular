@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="list-group col-12">
+      <input
+          type="text"
+          class="form-group"
+          placeholder="Cherchez un element ..."
+          [(ngModel)]="search"/>
+      <hr>
+      <button
+          *ngFor="let element of elements | filter:search ;let i = index"
+          routerLinkActive="active"
+          routerLink={{i}}
+          class="list-group-item list-group-item-action"
+          isActive
+      >
+          {{element.name}}
+      </button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <button class="btn btn-success" routerLink="new">
+      Ajouter un element !
+  </button>
+</div>
