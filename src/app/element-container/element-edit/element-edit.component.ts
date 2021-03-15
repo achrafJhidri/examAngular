@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import {
   AbstractControl,
   FormArray,
@@ -24,8 +25,9 @@ export class ElementEditComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private elementService: ElementService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((paramsMap: ParamMap) => {
@@ -81,6 +83,7 @@ export class ElementEditComponent implements OnInit {
     } else {
       this.elementService.editElement(this.elementForm.value);
     }
+    this.router.navigate(['/elements',this.elementService.elements.value.length-1]);
   }
   getIngredients(): AbstractControl[] {
     return (this.elementForm.get('ingredients') as FormArray).controls;
