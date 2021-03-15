@@ -1,0 +1,33 @@
+<div *ngIf="selectedElement">
+  <div class="row">
+      <div class="col-4">
+          <img
+              [src]="selectedElement.img"
+              [alt]="selectedElement.description"
+              style="max-height: 150px;"
+              class="img-fluid"
+          >
+      </div>
+      <h3 class="col-8">{{selectedElement.name}}</h3>
+  </div>
+  <hr>
+  <div class="row">
+      <p class="col-12">{{selectedElement.description}}</p>
+  </div>
+  <hr>
+  <div class="row">
+      <ul class="list-group col-12">
+          <li class="list-group-item list-group-item-action" *ngFor="let ingredient of selectedElement.ingredients">
+              {{ingredient.name}}
+              <span class="badge badge-secondary badge-primary float-right">
+                  {{ ingredient.quantity }}
+              </span>
+          </li>
+      </ul>
+  </div>
+  <HR>
+  <div class="row">
+      <button class="btn btn-success" [routerLink]="getUrl()"> Edit element</button>
+  </div>
+
+  </div>
