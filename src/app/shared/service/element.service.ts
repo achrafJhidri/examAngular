@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Element } from '../model/element.model';
-import { Ingredient } from '../model/Ingredient.model';
+import { Ingredient } from '../model/ingredient.model';
 
 @Injectable()
 export class ElementService {
