@@ -7,9 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ElementModule } from './element-container/element.module';
 import { ShareModule } from './shared/modules/shared.module';
 
+import { ElementService } from './shared/service/element.service';
+
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,7 @@ import { ShareModule } from './shared/modules/shared.module';
     ElementModule,
     ShareModule
   ],
-  providers: [],
+  providers: [ElementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

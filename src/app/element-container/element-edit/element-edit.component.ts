@@ -21,6 +21,7 @@ export class ElementEditComponent implements OnInit {
   public elementForm!: FormGroup;
   private element!: Element;
   private edit!: boolean;
+  private index!: number ;
   constructor(
     private fb: FormBuilder,
     private elementService: ElementService,
@@ -33,8 +34,9 @@ export class ElementEditComponent implements OnInit {
       const index = paramsMap.get('index');
       if (index) {
         this.edit = true;
+        this.index = +index
         this.elementService
-          .getElement(+index)
+          .getElement(this.index)
           .subscribe((c) => (this.element = c));
         this.initForm(this.element);
       } else {
@@ -44,7 +46,7 @@ export class ElementEditComponent implements OnInit {
     });
   }
   private initForm(
-    element: Element = { name: '', img: '', description: '' }
+    element: Element = { name: '', img: '', description: '' , isFav : false}
   ): void {
     this.elementForm = this.fb.group({
       name: [element.name, Validators.required],
@@ -70,42 +72,16 @@ export class ElementEditComponent implements OnInit {
   createElement(): void {
     if (!this.edit) {
       this.elementService.addElement(this.elementForm.value);
+      this.router.navigate([
+        '/elements',
+        this.elementService.elements.value.length - 1,
+      ]);
     } else {
-      this.activatedRoute.paramMap.subscribe((paramsMap: ParamMap) => {
-        
-        const index = paramsMap.get('index');
-        let elm: Element;
-        this.elementService.getElement(+index).subscribe((el) => {
-          elm = el;
-          
-          
-          const foundElemDuplicateName = this.elementService.elements.value.findIndex(
-            (film) =>
-              film !== elm &&
-              film.name === this.elementForm.controls['name'].value
-          );
-
-            // console.log(foundElemDuplicateName)
-  
-
-          if (foundElemDuplicateName === -1) {
-            // this.elementService.editElement(this.elementForm.value);
-            console.log("not found a duplicated name")
-          } else {
-            console.log('duplicated Name');
-          //   this.elementForm.controls['name'].setErrors({'invalid': true})
-          }
-
-        });
-      });
+      this.elementService.editElement(this.elementForm.value,this.index);
+      this.router.navigate([
+        '/elements',
+      ]);
     }
-    this.router.navigate([
-      '/elements',
-      this.elementService.elements.value.length - 1,
-    ]);
+    
   }
-
-  // getIngredients(): AbstractControl[] {
-  //   return (this.elementForm.get('ingredients') as FormArray).controls;
-  // }
 }

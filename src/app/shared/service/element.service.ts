@@ -44,15 +44,14 @@ export class ElementService {
 
     this.save();
   }
-  editElement(editedElement: Element): void {
+  editElement(editedElement: Element, index : number): void {
     const elements = this.elements.value.slice();
-    const index = elements.map((c) => c.name).indexOf(editedElement.name);
 
     elements[index] = editedElement;
     this.elements.next(elements);
-
     this.save();
   }
+
 
   deleteElement(index : number ) : void {
     const current = this.elements.value ;
@@ -69,5 +68,21 @@ export class ElementService {
         this.elements.value
       )
       .subscribe();
+  }
+  getRandom(): number {
+    return Math.floor(Math.random() * Math.floor(this.elements.value.length));
+  }
+  toggleFavoris(element : Element,index : number) : void {
+    element.isFav=!element.isFav
+
+    const elements = this.elements.value.slice();
+
+    elements[index] = element;
+    this.elements.next(elements);
+    this.save();
+  }
+  getActualList() : Element[] {
+    this.initElement();
+    return this.elements.value;
   }
 }

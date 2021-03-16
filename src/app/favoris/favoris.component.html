@@ -1,0 +1,11 @@
+<div class="row">
+
+    <app-element-details
+      *ngFor="let element of getFavoris() | favoris ;let i = index"
+      [index]="i"
+      [selectedElement]="element"
+
+      class="col-4"
+    >
+    </app-element-details>
+</div>

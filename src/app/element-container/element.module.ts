@@ -9,8 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { elementRouting } from './element.routing';
 import { ActiveDirective } from '../shared/directives/active.directive';
+import { FavorisComponent } from '../favoris/favoris.component';
 
-
+import {FavorisPipe} from '../shared/pipes/filters/favoris.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { ActiveDirective } from '../shared/directives/active.directive';
     ElementsDetailsComponent,
     ElementContainerComponent,
     ElementEditComponent,
+    FavorisComponent,
     FilterPipe,
+    FavorisPipe,
     ActiveDirective,
   ],
   imports: [

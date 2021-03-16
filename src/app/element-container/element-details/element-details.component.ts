@@ -24,8 +24,10 @@ export class ElementsDetailsComponent implements OnInit {
     if (!this.index) {
       // if you're coming from the URL
       this.activatedRoute.paramMap.subscribe((paramsMap: ParamMap) => {
-        this.index = + paramsMap.get('index');
-        this.elementService
+        const val =  paramsMap.get('index')
+        if (val !== null){
+          this.index = +val;
+          this.elementService
           .getElement(this.index)
           .subscribe((element: Element) => {
             if (element) {
@@ -34,6 +36,7 @@ export class ElementsDetailsComponent implements OnInit {
               this.router.navigateByUrl('/elements');
             }
           });
+        }
       });
     }
   }
@@ -42,5 +45,14 @@ export class ElementsDetailsComponent implements OnInit {
   }
   deleteFilm(): void {
     this.elementService.deleteElement(this.index);
+  }
+
+  ToggleFavoris() :  void {
+    this.elementService.toggleFavoris(this.selectedElement,this.index);
+  }
+  isFavoris() : string {
+    let result ;
+    this.selectedElement.isFav ? result = 'supprimer des favoris' : result =  'ajouter aux favoris' 
+    return result ;
   }
 }
