@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { Element } from '../model/element.model';
-import { Ingredient } from '../model/ingredient.model';
 
 @Injectable()
 export class ElementService {
@@ -16,7 +15,7 @@ export class ElementService {
   initElement(): void {
     this.httpClient
       .get<Element[]>(
-        'https://dbexam-ea7d3-default-rtdb.europe-west1.firebasedatabase.app/elements.json'
+        'https://dbexam-ea7d3-default-rtdb.europe-west1.firebasedatabase.app/films.json'
       )
       .subscribe((elements: Element[]) => this.elements.next(elements));
   }
@@ -36,9 +35,9 @@ export class ElementService {
         element.name,
         element.description,
         element.img,
-        element.ingredients.map(
-          (ingredient) => new Ingredient(ingredient.name, ingredient.quantity)
-        )
+        // element.ingredients.map(
+        //   (ingredient) => new Ingredient(ingredient.name, ingredient.quantity)
+        // )
       )
     );
     this.elements.next(elements);
@@ -54,12 +53,19 @@ export class ElementService {
 
     this.save();
   }
-  save(): void {
-    console.log(this.elements.value);
 
+  deleteElement(index : number ) : void {
+    const current = this.elements.value ;
+    const elements = current ? current.slice() : [] ;
+    elements.splice(index,1);
+    this.elements.next(elements);
+    this.save();
+  }
+  
+  save(): void {
     this.httpClient
       .put(
-        'https://dbexam-ea7d3-default-rtdb.europe-west1.firebasedatabase.app/elements.json',
+        'https://dbexam-ea7d3-default-rtdb.europe-west1.firebasedatabase.app/films.json',
         this.elements.value
       )
       .subscribe();

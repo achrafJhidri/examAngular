@@ -13,8 +13,8 @@ export class ActiveDirective {
 
   @HostListener('click', ['$event.target'])
   onClick(): void {
-    this.renderer.setAttribute(this.el.nativeElement, 'class', 'test');
-    this.renderer.setProperty(this.el.nativeElement, 'innerHTML', '👌');
-    this.renderer.setStyle(this.el.nativeElement, 'color', '#FF0000');
+      // this.renderer.setAttribute(this.el.nativeElement, 'class', 'test');
+      // this.renderer.setProperty(this.el.nativeElement, 'innerHTML', '👌');
+      // this.renderer.setStyle(this.el.nativeElement, 'color', '#FF0000');
   }
 }
